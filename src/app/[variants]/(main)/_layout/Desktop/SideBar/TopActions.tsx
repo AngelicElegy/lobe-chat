@@ -1,5 +1,5 @@
 import { ActionIcon, ActionIconProps } from '@lobehub/ui';
-import { Compass, FolderClosed, MessageSquare } from 'lucide-react';
+import { BookUser, MessageSquare, UsersRound } from 'lucide-react';
 import Link from 'next/link';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,11 +24,10 @@ export interface TopActionProps {
 const TopActions = memo<TopActionProps>(({ tab, isPinned }) => {
   const { t } = useTranslation('common');
   const switchBackToChat = useGlobalStore((s) => s.switchBackToChat);
-  const { showMarket, enableKnowledgeBase } = useServerConfigStore(featureFlagsSelectors);
 
   const isChatActive = tab === SidebarTabKey.Chat && !isPinned;
-  const isFilesActive = tab === SidebarTabKey.Files;
-  const isDiscoverActive = tab === SidebarTabKey.Discover;
+  const isCustomerManagementActive = tab === SidebarTabKey.CustomerManagement;
+  const isEmployeeManagementActive = tab === SidebarTabKey.EmployeeManagement;
 
   return (
     <Flexbox gap={8}>
@@ -54,28 +53,24 @@ const TopActions = memo<TopActionProps>(({ tab, isPinned }) => {
           tooltipProps={{ placement: 'right' }}
         />
       </Link>
-      {enableKnowledgeBase && (
-        <Link aria-label={t('tab.files')} href={'/files'}>
-          <ActionIcon
-            active={isFilesActive}
-            icon={FolderClosed}
-            size={ICON_SIZE}
-            title={t('tab.files')}
-            tooltipProps={{ placement: 'right' }}
-          />
-        </Link>
-      )}
-      {showMarket && (
-        <Link aria-label={t('tab.discover')} href={'/discover'}>
-          <ActionIcon
-            active={isDiscoverActive}
-            icon={Compass}
-            size={ICON_SIZE}
-            title={t('tab.discover')}
-            tooltipProps={{ placement: 'right' }}
-          />
-        </Link>
-      )}
+      <Link aria-label={"客户管理"} href={'/customer'}>
+        <ActionIcon
+          active={isCustomerManagementActive}
+          icon={BookUser}
+          size={ICON_SIZE}
+          title={"客户管理"}
+          tooltipProps={{ placement: 'right' }}
+        />
+      </Link>
+      <Link aria-label={"员工管理"} href={'/employee'}>
+        <ActionIcon
+          active={isEmployeeManagementActive}
+          icon={UsersRound}
+          size={ICON_SIZE}
+          title={"员工管理"}
+          tooltipProps={{ placement: 'right' }}
+        />
+      </Link>
     </Flexbox>
   );
 });

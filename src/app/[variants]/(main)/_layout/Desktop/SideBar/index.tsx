@@ -13,7 +13,6 @@ import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfi
 import { electronStylish } from '@/styles/electron';
 
 import Avatar from './Avatar';
-import BottomActions from './BottomActions';
 import PinList from './PinList';
 import TopActions from './TopActions';
 
@@ -37,11 +36,7 @@ const Nav = memo(() => {
             <Avatar />
           </div>
         }
-        bottomActions={
-          <div className={electronStylish.nodrag}>
-            <BottomActions />
-          </div>
-        }
+        bottomActions={<div />}
         className={electronStylish.draggable}
         style={{
           height: '100%',
